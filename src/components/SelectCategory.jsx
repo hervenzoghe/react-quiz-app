@@ -1,10 +1,18 @@
+import useFetchQuizData from "../utils/useFecthQuizData"
+import '../styles/SelectCategory.css'
+
 export default function SelectCategory () {
-    <div className="categories-section">
-        <h2>Configuration (1/2)</h2>
-        <p>Sélectionnez une catégorie pour commencer :</p>
-        <div className="categories">
+    const data = (useFetchQuizData()).data
+    const categories = data ? [...new Set(data.map(question => question.category))] : []
 
+    return (
+        <div className="categories-container">
+            <h2>Choix de préférences</h2>
+            <p>Sélectionnez une catégorie pour commencer :</p>
+            <div className="categories">
+                {categories.map((category) => <button key={category}>{category.toUpperCase()}</button>
+                )}
+            </div>
         </div>
-    </div>
+    )
 }
-
