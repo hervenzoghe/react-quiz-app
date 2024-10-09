@@ -7,10 +7,11 @@ categories-container {
 }
 
 .categories {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 16px;
     align-items: center;
     justify-content: space-between;
+    margin: 36px;
+    padding: 36px;
 }
