@@ -1,7 +1,24 @@
 .input-field {
-    width: 500px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: 510px;
+    margin: 15px auto;
+    border: 2px solid #333;
+    border-radius: 5px;
     padding: 5px;
+}
+
+.input-field:hover { 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.input-field label {
+    font-size: 18px;
+    color: #000;
+}
+
+.input-field input {
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    color: #242424;
+    background: local;
 }

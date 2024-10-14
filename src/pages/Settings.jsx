@@ -14,9 +14,13 @@ export default function Settings () {
             <div className="settings-fields">
                 <SelectField id="category-select" name="category" items={categories} label="Choose a category" />
                 <SelectField id="difficulty-select" name="difficulty" items={difficulties} label="Choose difficulty level" />
-                <InputField minAmount={5} maxAmount={50} />
+                <InputField minAmount={1} maxAmount={50} />
             </div>
-            <button type="submit">Start Quiz</button>
+            <button type="submit" onClick={(e) => {
+                e.preventDefault()
+            }}>
+                Start Quiz
+            </button>
         </form>
     )
 }

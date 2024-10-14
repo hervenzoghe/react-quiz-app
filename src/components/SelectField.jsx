@@ -7,9 +7,9 @@ export default function SelectField ({id, name, items, label}) {
             {label && <label htmlFor={id}>{label}</label>}
             <select name={name} id={id}>
                 <option value="">Choose an option</option>
-                {items.map((item) => {
+                {items.map((item) => (
                     <option key={item.value} value={item.value}>{item.label}</option>
-                })}
+                ))}
             </select>
         </div>
     )
