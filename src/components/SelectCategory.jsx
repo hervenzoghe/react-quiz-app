@@ -1,5 +1,5 @@
-import useFetchQuizData from "../utils/useFecthQuizData"
-import '../styles/SelectCategory.css'
+import useFetchQuizData from "../hooks/useFecthQuizData"
+import '../styles/components/SelectCategory.css'
 
 export default function SelectCategory () {
     const data = (useFetchQuizData()).data

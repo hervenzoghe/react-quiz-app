@@ -4,9 +4,9 @@ const API_URL = "https://the-trivia-api.com/v2/questions"
 
 // A customized hook to fetch quiz data
 const useFetchQuizData = () => {
-    const [data, setData] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [data, setData] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState(null)
   
     useEffect(() => {
         const fetchData = async () => {
@@ -27,4 +27,4 @@ const useFetchQuizData = () => {
     return { data, isLoading, error }
 }
   
-export default useFetchQuizData;
+export default useFetchQuizData
