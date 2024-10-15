@@ -14,7 +14,6 @@ export default function Settings () {
 
     const handleCategoryChange = (event) => {
         setCategory(categoryMapping[event.target.value])
-        console.log(category)
     }
 
     const handleDifficultyChange = (event) => {
