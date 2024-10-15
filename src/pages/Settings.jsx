@@ -4,41 +4,17 @@ import { categories, categoryMapping } from "../data/categories"
 import { difficulties } from "../data/difficulties"
 import '../styles/pages/Settings.css'
 import { useState } from "react"
-import useFetchQuizData from "../hooks/useAxios"
+import { buildUrl } from "../hooks/buildUrl"
+import axios from "axios"
 
 export default function Settings () {
     const [category, setCategory] = useState('')
     const [difficulty, setDifficulty] = useState('')
     const [numQuestions, setNumQuestions] = useState(0)
 
-    // Call the hool to fetch data
-    const { data, isLoading, error } = useFetchQuizData(transformedCategory, difficulty, numQuestions)
-
-    // Our API call URL
-    const API_URL = "https://the-trivia-api.com/v2/questions"
-
-    // Mapping user-friendly category with API required format
-    const transformedCategory = categoryMapping[category]
-
-    const handleSubmit = async () => {
-        // Construct the API URL based on user selections
-        let url = `${API_URL}?`
-        if (category) {
-            url += `categories=${transformedCategory}`
-        }
-        if (difficulty) {
-            url += `&difficulty=${difficulty}`
-        }
-        if (numQuestions) {
-            url += `&limit=${numQuestions}` // Assuming API uses 'limit' for questions
-        }
-
-        // Encode special characters in the URL (optional)
-        const encodedUrl = encodeURI(url); // Handles special characters like spaces in categories
-    }
-
     const handleCategoryChange = (event) => {
-        setCategory(event.target.value)
+        setCategory(categoryMapping[event.target.value])
+        console.log(category)
     }
 
     const handleDifficultyChange = (event) => {
@@ -49,22 +25,54 @@ export default function Settings () {
         setNumQuestions(event.target.value)
     }
 
+    // Our core parameters
+    const [data, setData] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState(null)
+
+    const handleSubmit = async () => {
+        const url = buildUrl({
+            category, 
+            difficulty, 
+            numQuestions
+        })
+
+        //Fetch data
+        setIsLoading(true)
+
+        try {
+            const response = await axios.get(url)
+            setData(response.data)
+        } catch (error) {
+            setError(error)
+        } finally {
+            setIsLoading(false)
+        }
+
+        // Conditional rendering based on state
+        if (isLoading) {
+            return <p>Loading...</p>;
+        } else if (error) {
+            return <p>Error: {error.message}</p>;
+        }
+    }
+
     return (
-        <form className="quiz-form">
+        <form className="quiz-form" onSubmit={handleSubmit}>
             <h2> Quiz App : Configuration</h2>
             <p>Let&apos;s make your experience unique</p>
             <div className="settings-fields">
                 <SelectField 
                     id="category-select" 
-                    name="category" 
-                    items={categories} 
+                    name="categories" 
+                    options={categories} 
                     label="Choose a category"
                     onChange={handleCategoryChange}
                 />
                 <SelectField 
                     id="difficulty-select" 
-                    name="difficulty" 
-                    items={difficulties} 
+                    name="difficulties" 
+                    options={difficulties} 
                     label="Choose difficulty level"
                     onChange={handleDifficultyChange}
                 />
@@ -74,11 +82,16 @@ export default function Settings () {
                     onChange={handleNumQuestionsChange}
                 />
             </div>
-            <button type="submit" onClick={(e) => {
-                e.preventDefault()
-            }}>
+            <button type="submit">
                 Start Quiz
             </button>
+            {(!isLoading && !error && data) && (
+              <div>
+                <h2>Fetched Data</h2>
+                {/* Display the fetched data here (e.g., loop through an array or access specific properties) */}
+                <pre>{JSON.stringify(data, null, 2)}</pre>  {/* Pretty-print the JSON data */}
+              </div>
+            )}
         </form>
     )
 }

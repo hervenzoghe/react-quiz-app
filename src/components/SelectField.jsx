@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 import '../styles/components/SelectField.css'
 
-export default function SelectField ({id, name, items, label, onChange}) {
+export default function SelectField ({id, name, options, label, onChange}) {
     return (
         <div className="select-field">
             {label && <label htmlFor={id}>{label}</label>}
             <select name={name} id={id}>
                 <option value="">Choose an option</option>
-                {items.map((item) => (
+                {options.map((item) => (
                     <option key={item.value} value={item.value} onChange={onChange}>{item.label}</option>
                 ))}
             </select>
@@ -18,9 +18,8 @@ export default function SelectField ({id, name, items, label, onChange}) {
 SelectField.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(
+    options: PropTypes.arrayOf(
         PropTypes.shape({
-            key: PropTypes.string.isRequired,
             value: PropTypes.string.isRequired,
             label: PropTypes.string.isRequired
         })
