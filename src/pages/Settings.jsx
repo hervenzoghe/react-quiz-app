@@ -55,7 +55,7 @@ export default function Settings ({category, difficulty, numQuestions, onCategor
 Settings.propTypes = {
     category: PropTypes.string ,
     difficulty: PropTypes.string,
-    numQuestions: PropTypes.number,
+    numQuestions: PropTypes.string,
     onDifficultyChange: PropTypes.func,
     onCategoryChange: PropTypes.func,
     onNumQuestionsChange: PropTypes.func

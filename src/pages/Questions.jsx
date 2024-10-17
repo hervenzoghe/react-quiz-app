@@ -49,7 +49,7 @@ export default function Questions ({category, difficulty, numQuestions, score, u
     return (
         <div className="quiz-questions">
             <h4>Questions {questionIndex + 1}</h4>
-            <p>{data[questionIndex].question.text}</p>
+            <p>{data && data[questionIndex].question.text}</p>
             {options.map((option, id) => (
                 <div key={id}>
                     <button onClick={handleClickAnswer}>
@@ -58,7 +58,7 @@ export default function Questions ({category, difficulty, numQuestions, score, u
                 </div>
             ))}
             <div>
-                Score : {score} / {data.length}
+                Score : {score} / {data?.length}
             </div>
         </div>
     )
@@ -67,7 +67,7 @@ export default function Questions ({category, difficulty, numQuestions, score, u
 Questions.propTypes = {
     category: PropTypes.string ,
     difficulty: PropTypes.string,
-    numQuestions: PropTypes.number,
+    numQuestions: PropTypes.string,
     score: PropTypes.number,
     updateScore: PropTypes.func
 }

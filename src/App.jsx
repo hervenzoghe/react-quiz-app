@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Settings from './pages/Settings'
+import Settings from "./pages/settings"
 import Questions from './pages/Questions'
 import Score from "./pages/Score"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 function App() {
   const [category, setCategory] = useState('')
   const [difficulty, setDifficulty] = useState('')
-  const [numQuestions, setNumQuestions] = useState(5)
+  const [numQuestions, setNumQuestions] = useState("5")
   
   // Managing score state
   let [score, setScore] = useState(0)
@@ -34,7 +34,7 @@ function App() {
   }
 
   const handleNumQuestionsChange = (event) => {
-    setNumQuestions(Number(event.target.value))
+    setNumQuestions(event.target.value)
   }
 
   return (

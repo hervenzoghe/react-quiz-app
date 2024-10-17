@@ -13,6 +13,6 @@ export default function InputField ({minAmount, maxAmount, value, onChange}) {
 InputField.propTypes = {
     minAmount: PropTypes.number,
     maxAmount: PropTypes.number,
-    value: PropTypes.number,
+    value: PropTypes.string,
     onChange: PropTypes.func
 }
