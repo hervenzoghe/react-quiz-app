@@ -67,7 +67,7 @@ function App() {
         <Route 
           path="/score"
           element={
-            <Score score={score} />
+            <Score score={score} numQuestions={numQuestions} />
           }
         />
       </Routes>

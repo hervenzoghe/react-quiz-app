@@ -48,16 +48,20 @@ export default function Questions ({category, difficulty, numQuestions, score, u
 
     return (
         <div className="quiz-questions">
-            <h4>Questions {questionIndex + 1}</h4>
-            <p>{data && data[questionIndex].question.text}</p>
-            {options.map((option, id) => (
-                <div key={id}>
-                    <button onClick={handleClickAnswer}>
-                        {option}
-                    </button>
-                </div>
-            ))}
-            <div>
+            <div className="quiz-heading">
+                <h1>Question N°{questionIndex + 1}</h1>
+                <p>{data && data[questionIndex].question.text}</p>
+            </div>
+            <div className="options">
+                {options.map((option, id) => (
+                    <div  key={id}>
+                        <button onClick={handleClickAnswer}>
+                            {option}
+                        </button>
+                    </div>
+                ))}
+            </div>
+            <div className="quiz-score">
                 Score : {score} / {data?.length}
             </div>
         </div>
