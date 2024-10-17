@@ -13,6 +13,6 @@ export const buildUrl = ({category, difficulty, numQuestions}) => {
         url += `&limit=${numQuestions}` // Assuming API uses 'limit' for questions
     }
 
-    return encodeURI(url) //Handles special characters like spaces in categories
+    return url //Handles special characters like spaces in categories
 
 }

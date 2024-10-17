@@ -40,16 +40,3 @@ export const categories = [
         label: "General Knowledge"
     }
 ]
-
-export const categoryMapping = {
-    "Music": "music",
-    "Sport and Leisure": "sport_and_leisure",
-    "Film and TV": "film_and_tv",
-    "Arts and Literature": "arts_and_literature",
-    "History": "history",
-    "Society and Culture": "society_and_culture",
-    "Sciences": "sciences",
-    "Geography": "geography",
-    "Food and Drink": "food_and_drink",
-    "General Knowledge": "genral_knowledge"
-}

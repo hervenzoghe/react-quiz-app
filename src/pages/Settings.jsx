@@ -1,59 +1,20 @@
+
+import PropTypes from 'prop-types'
+import '../styles/pages/Settings.css'
 import SelectField from "../components/SelectField"
 import InputField from "../components/InputField"
-import { categories, categoryMapping } from "../data/categories"
+import { categories } from "../data/categories"
 import { difficulties } from "../data/difficulties"
-import '../styles/pages/Settings.css'
-import { useState } from "react"
-import { buildUrl } from "../hooks/buildUrl"
-import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
-export default function Settings () {
-    const [category, setCategory] = useState('')
-    const [difficulty, setDifficulty] = useState('')
-    const [numQuestions, setNumQuestions] = useState(0)
+export default function Settings ({category, difficulty, numQuestions, onCategoryChange, onDifficultyChange, onNumQuestionsChange}) {
+    // Navigate to other page
+    const navigate = useNavigate()
 
-    const handleCategoryChange = (event) => {
-        setCategory(categoryMapping[event.target.value])
-    }
-
-    const handleDifficultyChange = (event) => {
-        setDifficulty(event.target.value.toLowerCase())
-    }
-
-    const handleNumQuestionsChange = (event) => {
-        setNumQuestions(event.target.value)
-    }
-
-    // Our core parameters
-    const [data, setData] = useState(null)
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(null)
-
-    const handleSubmit = async () => {
-        const url = buildUrl({
-            category, 
-            difficulty, 
-            numQuestions
-        })
-
-        //Fetch data
-        setIsLoading(true)
-
-        try {
-            const response = await axios.get(url)
-            setData(response.data)
-        } catch (error) {
-            setError(error)
-        } finally {
-            setIsLoading(false)
-        }
-
-        // Conditional rendering based on state
-        if (isLoading) {
-            return <p>Loading...</p>;
-        } else if (error) {
-            return <p>Error: {error.message}</p>;
-        }
+    // Function for handling form submission
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        navigate("/questions")
     }
 
     return (
@@ -66,31 +27,36 @@ export default function Settings () {
                     name="categories" 
                     options={categories} 
                     label="Choose a category"
-                    onChange={handleCategoryChange}
+                    value={category}
+                    onChange={onCategoryChange}
                 />
                 <SelectField 
                     id="difficulty-select" 
                     name="difficulties" 
                     options={difficulties} 
                     label="Choose difficulty level"
-                    onChange={handleDifficultyChange}
+                    value={difficulty}
+                    onChange={onDifficultyChange}
                 />
                 <InputField 
                     minAmount={1}
                     maxAmount={50}
-                    onChange={handleNumQuestionsChange}
+                    value={numQuestions}
+                    onChange={onNumQuestionsChange}
                 />
             </div>
             <button type="submit">
                 Start Quiz
             </button>
-            {(!isLoading && !error && data) && (
-              <div>
-                <h2>Fetched Data</h2>
-                {/* Display the fetched data here (e.g., loop through an array or access specific properties) */}
-                <pre>{JSON.stringify(data, null, 2)}</pre>  {/* Pretty-print the JSON data */}
-              </div>
-            )}
         </form>
     )
+}
+
+Settings.propTypes = {
+    category: PropTypes.string ,
+    difficulty: PropTypes.string,
+    numQuestions: PropTypes.number,
+    onDifficultyChange: PropTypes.func,
+    onCategoryChange: PropTypes.func,
+    onNumQuestionsChange: PropTypes.func
 }
